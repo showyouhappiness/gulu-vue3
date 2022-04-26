@@ -1,15 +1,22 @@
 <template>
-  <div>
-    <router-link to="/">test</router-link>
-    |
-    <router-link to="/test2">test2</router-link>
-  </div>
-  <router-view to="/"></router-view>
+  <router-view/>
 </template>
 
-<script>
+<script lang="ts">
+import {ref, provide} from "vue";
+import {router} from "./router";
 
 export default {
-  name: 'App',
-}
+  name: "App",
+  setup() {
+    const width = document.documentElement.clientWidth;
+    const menuVisible = ref(width > 500);
+    provide("menuVisible", menuVisible); // set
+    router.afterEach(() => {
+      if (width <= 500) {
+        menuVisible.value = false;
+      }
+    });
+  },
+};
 </script>
