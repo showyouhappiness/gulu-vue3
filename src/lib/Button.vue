@@ -174,7 +174,7 @@ $grey: grey;
     height: 14px;
     display: inline-block;
     margin-right: 4px;
-    border-radius: 8px;
+    border-radius: 8px; 
     border-color: $blue $blue $blue transparent;
     border-style: solid;
     border-width: 2px;
@@ -182,7 +182,7 @@ $grey: grey;
   }
 }
 @keyframes gulu-spin {
-  0%{transform: rotate(0deg)}
-  100%{transform: rotate(360deg)}
+  0%{transform: rotate(0deg)} 
+  100%{transform: rotate(360deg)} 
 }
 </style>
