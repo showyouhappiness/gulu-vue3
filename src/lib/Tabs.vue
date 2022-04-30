@@ -103,6 +103,7 @@ $border-color: #d9d9d9;
       padding: 8px 0;
       margin: 0 16px;
       cursor: pointer;
+      user-select: none;
 
       &.disabled {
         color: #ccc;
