@@ -1,28 +1,37 @@
 <template>
-<template v-if="visible">
-  <Teleport to="body">
-    <div class="gulu-dialog-overlay" @click="onClickOverlay"></div>
-    <div class="gulu-dialog-wrapper">
-      <div class="gulu-dialog">
-        <header>
-          <slot name="title" />
-          <span @click="close" class="gulu-dialog-close"></span>
-        </header>
-        <main>
-          <slot name="content" />
-        </main>
-        <footer>
-          <Button level="main" @click="ok">OK</Button>
-          <Button @click="cancel">Cancel</Button>
-        </footer>
+  <template v-if="visible">
+    <Teleport to="body">
+      <div class="gulu-dialog-overlay" @click="onClickOverlay"></div>
+      <div class="gulu-dialog-wrapper">
+        <div class="gulu-dialog">
+          <header>
+            <slot name="title"/>
+            <span @click="close" class="gulu-dialog-close"></span>
+          </header>
+          <main>
+            <slot name="content"/>
+          </main>
+          <footer>
+            <Button level="main" @click="ok">OK</Button>
+            <Button @click="cancel">Cancel</Button>
+          </footer>
+        </div>
       </div>
-    </div>
-  </Teleport>
-</template>
+    </Teleport>
+  </template>
 </template>
 
 <script lang="ts">
-import Button from "./Button.vue";
+import type {PropType, defineComponent} from "vue";
+import Button from "../Button.vue";
+
+interface DialogProps {
+  visible: boolean;
+  closeOnClickOverlay?: () => void;
+  ok?: () => unknown;
+  cancel?: () => unknown;
+}
+
 export default {
   props: {
     visible: {
@@ -34,16 +43,16 @@ export default {
       default: true
     },
     ok: {
-      type: Function
+      type: Function as PropType<() => unknown>,// 写代码的时候还不清楚会得到怎样的数据类型,理解为官网指定的替代 any 类型的安全版本
     },
     cancel: {
-      type: Function
+      type: Function as PropType<() => unknown>,
     }
   },
   components: {
     Button,
   },
-  setup(props, context) {
+  setup(props: DialogProps, context) {
     const close = () => {
       context.emit('update:visible', false)
     }
@@ -100,7 +109,7 @@ $border-color: #d9d9d9;
     z-index: 11;
   }
 
-  >header {
+  > header {
     padding: 12px 16px;
     border-bottom: 1px solid $border-color;
     display: flex;
@@ -109,11 +118,11 @@ $border-color: #d9d9d9;
     font-size: 20px;
   }
 
-  >main {
+  > main {
     padding: 12px 16px;
   }
 
-  >footer {
+  > footer {
     border-top: 1px solid $border-color;
     padding: 12px 16px;
     text-align: right;
