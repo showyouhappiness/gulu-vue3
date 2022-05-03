@@ -13,7 +13,7 @@ const history = createWebHashHistory();
 const md = filename => h(Markdown, { path: `../markdown/${filename}.md`, key: filename })
 
 export const router = createRouter({
-    history: history,
+    history,
     routes: [
         { path: "/", component: Home },
         {
