@@ -1,6 +1,5 @@
 <demo>
-<title>常规用法</title>
-<desc>支持不同的激活方式，包含 hover, click, focus</desc>
+常规用法
 </demo>
 
 <template>
@@ -34,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.coast-button {
+.gulu-button {
   margin-right: 20px;
 }
 </style>
