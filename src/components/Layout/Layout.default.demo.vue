@@ -29,4 +29,19 @@ export default {
 .gulu-button {
   margin-right: 20px;
 }
+
+.header {
+  background: #999;
+  height: 100px;
+}
+
+.sider {
+  background: #333;
+  width: 200px;
+}
+
+.footer {
+  background: #ccc;
+  height: 50px;
+}
 </style>
