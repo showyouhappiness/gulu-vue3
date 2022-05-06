@@ -8,6 +8,7 @@ import TabsDemo from "../components/Tabs/TabsDemo.vue";
 import PopOver from "../components/PopOver/PopOverDemo.vue";
 import Toast from "../components/Toast/ToastDemo.vue";
 import Layout from "../components/Layout/LayoutDemo.vue";
+import Layout1 from "../components/Layout1/LayoutDemo.vue";
 
 import { h } from 'vue';
 import Markdown from '../components/Markdown.vue';
@@ -33,6 +34,7 @@ export const router = createRouter({
                 { path: "popover", component: PopOver },
                 { path: "toast", component: Toast },
                 { path: "layout", component: Layout },
+                { path: "layout1", component: Layout1 },
             ],
         },
     ],
