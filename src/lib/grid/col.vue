@@ -4,8 +4,8 @@
   </div>
 </template>
 
-<script>
-let validator = (value) => {
+<script lang="ts">
+const validator = (value) => {
   let keys = Object.keys(value)
   let valid = true
   keys.forEach(key => {

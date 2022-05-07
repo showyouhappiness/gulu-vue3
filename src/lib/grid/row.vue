@@ -29,8 +29,28 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .row {
-    display: flex;
-    flex-wrap: wrap;
+.gulu-row {
+  display: flex;
+  flex-wrap: wrap;
+
+  &.gulu-justify-center {
+    justify-content: center;
   }
+
+  &.gulu-justify-start {
+    justify-content: flex-start;
+  }
+
+  &.gulu-justify-end {
+    justify-content: flex-end;
+  }
+
+  &.gulu-justify-space-around {
+    justify-content: space-around;
+  }
+
+  &.gulu-justify-space-between {
+    justify-content: space-between;
+  }
+}
 </style>
