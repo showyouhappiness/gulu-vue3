@@ -7,62 +7,86 @@
 </template>
 
 <script lang="ts">
+import {
+  onMounted,
+  onBeforeUnmount,
+  computed,
+  ref,
+} from "vue"
+
 export default {
   name: "GuluSticky",
   props: {
     distance: {
       type: Number,
       default: 0
-    }
+    },
+    test: {
+      type: Array,
+    },
+    sticky: {
+      type: Boolean,
+      default: true
+    },
+    height: {
+      type: String,
+    },
+    left: {
+      type: String,
+    },
+    width: {
+      type: String,
+    },
+    top: {
+      type: String,
+    },
   },
-  data() {
-    return {
-      sticky: false,
-      left: undefined,
-      width: undefined,
-      height: undefined,
-      top: undefined,
-    }
-  },
-  mounted() {
-    this.windowScrollHandler = this._windowScrollHandler.bind(this)
-    window.addEventListener('scroll', this.windowScrollHandler)
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.windowScrollHandler)
-  },
-  created() {
-    this.timerId = null
-  },
-  computed: {
-    classes() {
-      return {
-        sticky: this.sticky
-      }
-    }
-  },
-  methods: {
-    offsetTop() {
+  setup(props, context) {
+    const wrapper = ref(null);
+    const offsetTop = () => {
       let {top} = this.$refs.wrapper.getBoundingClientRect()
       return {top: top + window.scrollY}
-    },
-    _windowScrollHandler() {
-      let {top} = this.offsetTop()
+    }
+
+    const _windowScrollHandler = () => {
+      let {top} = offsetTop()
       if (window.scrollY > top - this.distance) {
         let {height, left, width} = this.$refs.wrapper.getBoundingClientRect()
-        this.height = height + 'px'
-        this.left = left + 'px'
-        this.width = width + 'px'
-        this.top = this.distance + 'px'
-        this.sticky = true
+        props.height = height + 'px'
+        props.left = left + 'px'
+        props.width = width + 'px'
+        props.top = this.distance + 'px'
+        props.sticky = true
       } else {
-        this.height = undefined
-        this.left = undefined
-        this.width = undefined
-        this.top = undefined
-        this.sticky = false
+        props.height = undefined
+        props.left = undefined
+        props.width = undefined
+        props.top = undefined
+        props.sticky = false
       }
     }
+
+    const classes = computed(() => {
+      return props.sticky
+    })
+
+    onMounted(() => {
+      window.addEventListener('scroll', _windowScrollHandler)
+    });
+    onBeforeUnmount(() => {
+      window.removeEventListener('scroll', _windowScrollHandler)
+    });
+
+    return {
+      classes,
+      left: props.left,
+      width: props.width,
+      height: props.height,
+      top: props.top,
+      wrapper,
+    }
+
+
   }
 }
 </script>

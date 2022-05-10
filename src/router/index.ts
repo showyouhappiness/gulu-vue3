@@ -10,6 +10,7 @@ import Toast from "../components/Toast/ToastDemo.vue";
 import Layout from "../components/Layout/LayoutDemo.vue";
 import Layout1 from "../components/Layout1/LayoutDemo.vue";
 import Grid from "../components/Grid/GridDemo.vue";
+import Sticky from "../components/Sticky/StickyDemo.vue";
 
 import { h } from 'vue';
 import Markdown from '../components/Markdown.vue';
@@ -37,6 +38,7 @@ export const router = createRouter({
                 { path: "layout", component: Layout },
                 { path: "layout1", component: Layout1 },
                 { path: "grid", component: Grid },
+                { path: "sticky", component: Sticky },
             ],
         },
     ],
