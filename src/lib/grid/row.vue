@@ -1,30 +1,52 @@
 <template>
-<div class="row" :style="rowStyle">
-  <slot></slot>
-</div>
+  <div :class="classes" :style="style">
+    <slot></slot>
+  </div>
 </template>
+<script lang="ts">
+import type {PropType} from 'vue';
+import {computed, provide} from 'vue';
 
-<script>
+type RowJustifyType = 'end' | 'start' | 'center' | 'space-around' | 'space-between';
+
+interface RowProps {
+  gutter: number | string;
+  justify: RowJustifyType;
+}
+
 export default {
   name: "GuluRow",
   props: {
     gutter: {
       type: [Number, String]
-    }
+    },
+    justify: {
+      type: String as PropType<RowJustifyType>,
+      required: false,
+      validator: (val: string) => {
+        return ['end', 'start', 'center', 'space-between', 'space-around'].includes(val);
+      },
+    },
   },
-  computed:{
-    rowStyle() {
+  setup(props: RowProps, {slots}) {
+    const gutter = computed(() => props.gutter);
+    provide('GuluRow', {gutter});
+
+    const style = computed(() => {
+      const marginValue = props.gutter ? `${-props.gutter / 2}px` : '';
       return {
-        marginLeft: -this.gutter / 2 + 'px',
-        marginRight: -this.gutter / 2 + 'px'
-      }
-    }
+        marginLeft: marginValue,
+        marginRight: marginValue,
+      };
+    });
+
+    const classes = computed(() => [
+      'gulu-row',
+      {[`gulu-justify-${props.justify}`]: props.justify},
+    ]);
+
+    return {classes, style, gutter}
   },
-  mounted() {
-    this.$children.forEach((vm)=>{
-      vm.gutter = this.gutter
-    })
-  }
 }
 </script>
 
